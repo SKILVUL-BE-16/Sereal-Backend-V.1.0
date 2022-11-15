@@ -1,0 +1,32 @@
+{
+  "nama": "nova",
+  "email": "nova@gmail.com",
+  "sekolah": "IAIN",
+  "jenis kelamin": "pria",
+  "tanggal lahir": "nova@gmail.com",
+  "kelas": {
+    "complete": [
+      "id_class_1",
+      "id_class_2"
+    ],
+    "progress": [
+      "id_class_3",
+      "id_class_4"
+    ]
+  },
+  "challenge": {
+    "complete": [
+      "id_challenge_1",
+      "id_challenge_2"
+    ],
+    "progress": [
+      "id_challenge_3",
+      "id_challenge_4"
+    ]
+  },
+  "social media": {
+    "facebook": "nova@fb",
+    "instagram": "nova@ig",
+    "other": "nova@fb.com"
+  }
+}
