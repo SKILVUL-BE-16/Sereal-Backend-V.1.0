@@ -1,0 +1,504 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "SEREAL APP",
+    "version": "1.0",
+    "description": "OpenAPI for Sereal RestFul API",
+    "contact": {
+      "name": "sereal.inc",
+      "email": "sereal@gmail.com"
+    },
+    "license": {
+      "name": "APACHE 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api.sereal.test/api/v1",
+      "description": "Sereal RestFul API Server"
+    }
+  ],
+  "paths": {
+    "/challenge": {
+      "get": {
+        "tags": [
+          "Challenge"
+        ],
+        "summary": "Get all challenges",
+        "description": "Get all active challenge by default",
+        "parameters": [
+          {
+            "name": "categories",
+            "in": "query",
+            "required": false,
+            "description": "Filter Challenge by categories",
+            "schema": {
+              "type": "string",
+              "nullable": true,
+              "minLength": 1,
+              "maxLength": 20
+            },
+            "examples": {
+              "digital-art": {
+                "value": "digital-art",
+                "description": "Will filter challenge where category is digital art"
+              },
+              "melukis": {
+                "value": "melukis",
+                "description": "Will filter challenge where category is melukis"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/schemaGet"
+                },
+                "examples": {
+                  "success": {
+                    "description": "Success when get all challenge",
+                    "value": [
+                      {
+                        "id": "1",
+                        "title": "Dasar Melukis Dengan Tema HUT RI",
+                        "description": "Pada kelas ini kamu akan belajar dimulai dari pengenalan tentang melukis, alat dan bahan apa saja yang harus disiapkan dan seperti apa teknik dasar menggunakan kuas. Di akhir kelas kamu diharapkan bisa membuat lukisan sesuai dengan kreativitasmu.",
+                        "requirement": "Di akhir kelas kamu diharapkan bisa membuat lukisan sesuai dengan kreativitasmu.Peserta membuat lukisan dengan tema “HUT RI ke-77” dengan requirement:",
+                        "content": [
+                          "http://link_img",
+                          "http://link_video"
+                        ],
+                        "categories": [
+                          "Melukis",
+                          "Digital Art"
+                        ],
+                        "status": true
+                      },
+                      {
+                        "id": "2",
+                        "title": "Example title",
+                        "description": "example description",
+                        "requirement": "example requirement",
+                        "content": [
+                          "http://examplelinkimage",
+                          "http://examplelinkvideo"
+                        ],
+                        "categories": [
+                          "Melukis",
+                          "Digital Art"
+                        ],
+                        "status": true
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Challenge"
+        ],
+        "summary": "Create new challenge",
+        "description": "Create new challenge to database",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/schemaPostAndPatch"
+              },
+              "example": {
+                "title": "Dasar Melukis Dengan Tema HUT RI",
+                "description": "Pada kelas ini kamu akan belajar dimulai dari pengenalan tentang melukis, alat dan bahan apa saja yang harus disiapkan dan seperti apa teknik dasar menggunakan kuas. Di akhir kelas kamu diharapkan bisa membuat lukisan sesuai dengan kreativitasmu.",
+                "requirement": "Di akhir kelas kamu diharapkan bisa membuat lukisan sesuai dengan kreativitasmu.Peserta membuat lukisan dengan tema “HUT RI ke-77” dengan requirement:",
+                "content": [
+                  "http://link_img",
+                  "http://link_video"
+                ],
+                "categories": [
+                  "Melukis",
+                  "Digital Art"
+                ],
+                "status": true
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/schemaResponseMassage"
+                },
+                "examples": {
+                  "success": {
+                    "description": "Success when create new challange",
+                    "value": {
+                      "massage": "Success create new challenge",
+                      "status": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/challenge/{challengeId}": {
+      "get": {
+        "tags": [
+          "Challenge"
+        ],
+        "summary": "Get existing challenge with uniq id",
+        "description": "Get existing challenge with uniq id in database",
+        "parameters": [
+          {
+            "name": "challengeId",
+            "in": "path",
+            "required": true,
+            "description": "sent specific id here",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "examples": {
+              "id_1": {
+                "value": "63746fb021c7711aa6b0ef99",
+                "description": "Will get challenge where id is 63746fb021c7711aa6b0ef99"
+              },
+              "id_2": {
+                "value": "63746fc121c7711aa6b0ef9b",
+                "description": "Will get challenge where id is 63746fc121c7711aa6b0ef9b"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/schemaGet"
+                },
+                "examples": {
+                  "id_1": {
+                    "description": "Success when get challenge data with uniq id ",
+                    "value": [
+                      {
+                        "id": "63746fb021c7711aa6b0ef99",
+                        "title": "Dasar Melukis Dengan Tema HUT RI",
+                        "description": "Pada kelas ini kamu akan belajar dimulai dari pengenalan tentang melukis, alat dan bahan apa saja yang harus disiapkan dan seperti apa teknik dasar menggunakan kuas. Di akhir kelas kamu diharapkan bisa membuat lukisan sesuai dengan kreativitasmu.",
+                        "requirement": "Di akhir kelas kamu diharapkan bisa membuat lukisan sesuai dengan kreativitasmu.Peserta membuat lukisan dengan tema “HUT RI ke-77” dengan requirement:",
+                        "content": [
+                          "http://link_img",
+                          "http://link_video"
+                        ],
+                        "categories": [
+                          "Melukis",
+                          "Digital Art"
+                        ],
+                        "status": true
+                      }
+                    ]
+                  },
+                  "id_2": {
+                    "description": "Success when get challenge data with uniq id ",
+                    "value": [
+                      {
+                        "id": "63746fc121c7711aa6b0ef9b",
+                        "title": "Example title",
+                        "description": "example description",
+                        "requirement": "example requirement",
+                        "content": [
+                          "http://examplelinkimage",
+                          "http://examplelinkvideo"
+                        ],
+                        "categories": [
+                          "Melukis",
+                          "Digital Art"
+                        ],
+                        "status": true
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/resError404"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Challenge"
+        ],
+        "summary": "Update existing challenge",
+        "description": "Update existing challenge in database",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/schemaPostAndPatch"
+              },
+              "examples": {
+                "title": {
+                  "description": "modify challenge title in database",
+                  "value": {
+                    "title": "Tuangkan Kreatifitasmu Di Moment Kebangsaan"
+                  }
+                },
+                "status": {
+                  "description": "modify challenge status in database",
+                  "value": {
+                    "status": true
+                  }
+                },
+                "categories": {
+                  "description": "modify challenge categories in database",
+                  "value": {
+                    "categories": [
+                      "Peran"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "challengeId",
+            "in": "path",
+            "required": true,
+            "description": "challenge id for update",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            },
+            "examples": {
+              "id_1": {
+                "value": "63746fb021c7711aa6b0ef99",
+                "description": "Will update challenge where id is ..."
+              },
+              "id_2": {
+                "value": "63746fc121c7711aa6b0ef9b",
+                "description": "Will update challenge where id is ..."
+              }
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/schemaResponseMassage"
+                },
+                "examples": {
+                  "success": {
+                    "description": "Success when modify challenge with id...",
+                    "value": {
+                      "massage": "Success modify Challenge",
+                      "status": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/schemaResponseMassage"
+                },
+                "examples": {
+                  "failed": {
+                    "description": "Challenge doesn't exist or server error",
+                    "value": {
+                      "massage": "Server Error",
+                      "error": "Cast to ObjectId failed for value"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Challenge"
+        ],
+        "summary": "Delete existing challenge",
+        "description": "Delete existing challenge in database",
+        "parameters": [
+          {
+            "name": "challengeId",
+            "in": "path",
+            "required": true,
+            "description": "challenge id for delete",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/schemaResponseMassage"
+                },
+                "examples": {
+                  "success": {
+                    "description": "Success when deletes challenge with id...",
+                    "value": {
+                      "massage": "Success deleted challenge",
+                      "status": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/resError404"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "schemaPostAndPatch": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 1
+          },
+          "requirement": {
+            "type": "string",
+            "maxLength": 15000,
+            "minLength": 10
+          },
+          "content": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "categories": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "status": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      },
+      "schemaResponseMassage": {
+        "type": "object",
+        "properties": {
+          "massage": {
+            "type": "string"
+          },
+          "status": {
+            "type": "boolean"
+          }
+        }
+      },
+      "schemaGet": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "requirement": {
+              "type": "string"
+            },
+            "content": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "categories": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "status": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "resError404": {
+        "description": "Not Found ",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/schemaResponseMassage"
+            },
+            "examples": {
+              "failed": {
+                "description": "Challenge iddoesn't exist",
+                "value": {
+                  "massage": "Challenge doesn't exist!",
+                  "status": false
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

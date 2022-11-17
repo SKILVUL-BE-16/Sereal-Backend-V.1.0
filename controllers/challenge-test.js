@@ -30,7 +30,7 @@ const createChallenge = (req, res) => {
   const challenge = new Challenge(data);
   challenge.save();
 
-  res.status(201).json({
+  res.status(200).json({
     message: 'Challenge has been created',
   });
 };
