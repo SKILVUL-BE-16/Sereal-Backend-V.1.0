@@ -1,9 +1,14 @@
 {
-  "nama": "nova",
-  "email": "nova@gmail.com",
+  "_id": {
+    "$oid": "6376b244bd5a4c499c4ec525"
+  },
+  "name": "nam",
+  "email": "namski@mail.com",
+  "password": "$2b$10$Z7AHosVSMPBlN89qXquRY.mbmSNw8RlZgHyODiTR1wqXAAwz3J83O",
+  "role": "user",
   "sekolah": "IAIN",
-  "jenis kelamin": "pria",
-  "tanggal lahir": "nova@gmail.com",
+  "tgl_lahir": "14/05/2000",
+  "jns_kelamin": "pria",
   "kelas": {
     "complete": [
       "id_class_1",
@@ -28,5 +33,16 @@
     "facebook": "nova@fb",
     "instagram": "nova@ig",
     "other": "nova@fb.com"
-  }
+  },
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1668723268655"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1668723268655"
+    }
+  },
+  "__v": 0
 }
