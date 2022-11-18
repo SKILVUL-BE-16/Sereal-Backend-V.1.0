@@ -68,10 +68,10 @@
                         "title": "Dasar Melukis Dengan Tema HUT RI",
                         "description": "Pada kelas ini kamu akan belajar dimulai dari pengenalan tentang melukis, alat dan bahan apa saja yang harus disiapkan dan seperti apa teknik dasar menggunakan kuas. Di akhir kelas kamu diharapkan bisa membuat lukisan sesuai dengan kreativitasmu.",
                         "requirement": "Di akhir kelas kamu diharapkan bisa membuat lukisan sesuai dengan kreativitasmu.Peserta membuat lukisan dengan tema “HUT RI ke-77” dengan requirement:",
-                        "content": [
-                          "http://link_img",
-                          "http://link_video"
-                        ],
+                        "content": {
+                          "image": "http://link_img",
+                          "video": "http://link_video"
+                        },
                         "categories": [
                           "Melukis",
                           "Digital Art"
@@ -83,10 +83,10 @@
                         "title": "Example title",
                         "description": "example description",
                         "requirement": "example requirement",
-                        "content": [
-                          "http://examplelinkimage",
-                          "http://examplelinkvideo"
-                        ],
+                        "content": {
+                          "image": "http://examplelinkimage",
+                          "video": "http://examplelinkvideo"
+                        },
                         "categories": [
                           "Melukis",
                           "Digital Art"
@@ -118,10 +118,10 @@
                 "title": "Dasar Melukis Dengan Tema HUT RI",
                 "description": "Pada kelas ini kamu akan belajar dimulai dari pengenalan tentang melukis, alat dan bahan apa saja yang harus disiapkan dan seperti apa teknik dasar menggunakan kuas. Di akhir kelas kamu diharapkan bisa membuat lukisan sesuai dengan kreativitasmu.",
                 "requirement": "Di akhir kelas kamu diharapkan bisa membuat lukisan sesuai dengan kreativitasmu.Peserta membuat lukisan dengan tema “HUT RI ke-77” dengan requirement:",
-                "content": [
-                  "http://link_img",
-                  "http://link_video"
-                ],
+                "content": {
+                  "image": "http://link_img",
+                  "video": "http://link_video"
+                },
                 "categories": [
                   "Melukis",
                   "Digital Art"
@@ -141,7 +141,7 @@
                 },
                 "examples": {
                   "success": {
-                    "description": "Success when create new challange",
+                    "description": "Success when create new challenge",
                     "value": {
                       "massage": "Success create new challenge",
                       "status": true
@@ -201,10 +201,10 @@
                         "title": "Dasar Melukis Dengan Tema HUT RI",
                         "description": "Pada kelas ini kamu akan belajar dimulai dari pengenalan tentang melukis, alat dan bahan apa saja yang harus disiapkan dan seperti apa teknik dasar menggunakan kuas. Di akhir kelas kamu diharapkan bisa membuat lukisan sesuai dengan kreativitasmu.",
                         "requirement": "Di akhir kelas kamu diharapkan bisa membuat lukisan sesuai dengan kreativitasmu.Peserta membuat lukisan dengan tema “HUT RI ke-77” dengan requirement:",
-                        "content": [
-                          "http://link_img",
-                          "http://link_video"
-                        ],
+                        "content": {
+                          "image": "http://link_img",
+                          "video": "http://link_video"
+                        },
                         "categories": [
                           "Melukis",
                           "Digital Art"
@@ -221,10 +221,10 @@
                         "title": "Example title",
                         "description": "example description",
                         "requirement": "example requirement",
-                        "content": [
-                          "http://examplelinkimage",
-                          "http://examplelinkvideo"
-                        ],
+                        "content": {
+                          "image": "http://link_img",
+                          "video": "http://link_video"
+                        },
                         "categories": [
                           "Melukis",
                           "Digital Art"
@@ -398,24 +398,27 @@
           "title": {
             "type": "string",
             "maxLength": 100,
-            "minLength": 1
+            "minLength": 10
           },
           "description": {
             "type": "string",
-            "maxLength": 500,
-            "minLength": 1
+            "maxLength": 1000,
+            "minLength": 10
           },
           "requirement": {
             "type": "string",
-            "maxLength": 15000,
+            "maxLength": 10000,
             "minLength": 10
           },
           "content": {
-            "type": "array",
-            "minItems": 1,
-            "items": {
-              "type": "string",
-              "minLength": 1
+            "type": "object",
+            "properties": {
+              "image": {
+                "type": "string"
+              },
+              "video": {
+                "type": "string"
+              }
             }
           },
           "categories": {
@@ -461,9 +464,14 @@
               "type": "string"
             },
             "content": {
-              "type": "array",
-              "items": {
-                "type": "string"
+              "type": "object",
+              "properties": {
+                "image": {
+                  "type": "string"
+                },
+                "video": {
+                  "type": "string"
+                }
               }
             },
             "categories": {
@@ -489,7 +497,7 @@
             },
             "examples": {
               "failed": {
-                "description": "Challenge iddoesn't exist",
+                "description": "Challenge id doesn't exist",
                 "value": {
                   "massage": "Challenge doesn't exist!",
                   "status": false
