@@ -1,5 +1,5 @@
 const Challenge = require('../models/challenge');
-
+const mongoose = require('mongoose');
 // get:
 const getAllChallenge = async (req, res) => {
   try {
@@ -16,22 +16,30 @@ const getChallengeByID = async (req, res) => {
   const { id } = req.params;
 
   try {
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(400).json({ message: 'No data for this challenge' });
     const challenge = await Challenge.findOne({ _id: id });
     res.status(200).json([challenge]);
-  } catch {
-    res.status(404);
-    res.send({ error: "Challange doesn't exist!" });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
   }
 };
 
 // post
 const createChallenge = (req, res) => {
   const data = req.body;
-  const challenge = new Challenge(data);
-  challenge.save();
 
-  res.status(201).json({
-    message: 'Challenge has been created',
+  const challenge = new Challenge(data);
+  challenge.save(function (err) {
+    if (err) {
+      res.status(500).json({
+        massage: err,
+      });
+    } else {
+      res.status(201).json({
+        message: 'Challenge has been created',
+      });
+    }
   });
 };
 
@@ -39,8 +47,11 @@ const createChallenge = (req, res) => {
 const deleteChallengeByID = async (req, res) => {
   const { id } = req.params;
   try {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ msg: 'No data for this challenge' });
+    }
     await Challenge.deleteOne({ _id: id });
-    res.status(204).send();
+    res.status(200).send({ massage: 'success delete challenge' });
   } catch {
     res.status(404);
     res.send({ error: "Challenge doesn't exist!" });
@@ -50,35 +61,27 @@ const deleteChallengeByID = async (req, res) => {
 // update:id
 const updateChallengeByID = async (req, res) => {
   const { id } = req.params;
+  const { title, description, requirement, content, categories, status } = req.body;
   try {
     const challenge = await Challenge.findOne({ _id: id });
-    console.log(challenge);
 
-    if (req.body.title) {
-      challenge.title = req.body.title;
+    if (title) challenge.title = title;
+
+    if (description) challenge.description = description;
+
+    if (requirement) challenge.requirement = requirement;
+
+    if (content) {
+      if (content.image) challenge.content.image = content.image;
+
+      if (content.video) challenge.content.video = content.video;
     }
 
-    if (req.body.description) {
-      challenge.description = req.body.description;
+    for (let key in categories) {
+      if (categories[key]) challenge.categories[key] = categories[key];
     }
 
-    if (req.body.requirement) {
-      challenge.requirement = req.body.requirement;
-    }
-
-    if (req.body.content.image) {
-      challenge.content.image = req.body.content.image;
-    }
-
-    if (req.body.content.video) {
-      challenge.content.video = req.body.content.video;
-    }
-
-    for (let key in req.body.categories) {
-      if (req.body.categories[key]) {
-        challenge.categories[key] = req.body.categories[key];
-      }
-    }
+    if (status != undefined && typeof status == 'boolean') status ? (challenge.status = true) : (challenge.status = false);
 
     await challenge.save();
 
