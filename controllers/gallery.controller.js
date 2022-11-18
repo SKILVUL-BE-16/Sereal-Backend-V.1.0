@@ -6,8 +6,11 @@ const getAllGallery = async (req, res) => {
     const gallery = await Gallery.find({}, '-__v');
 
     res.status(200).json(gallery);
-  } catch (e) {
-    console.log(e);
+  } catch (error) {
+    res.status(500).send({
+      message: 'Server Error',
+      error: error.message,
+    });
   }
 };
 
@@ -18,10 +21,15 @@ const getGalleryByID = async (req, res) => {
   try {
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(400).json({ message: 'No data for this gallery' });
     const gallery = await Gallery.findOne({ _id: id });
-    res.status(200).json([gallery]);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server Error');
+    res.status(200).json({
+      message: `Get user with id ${id} success`,
+      data: gallery,
+    });
+  } catch (error) {
+    res.status(500).send({
+      message: 'Server Error',
+      error: error.message,
+    });
   }
 };
 
@@ -47,14 +55,13 @@ const createGallery = (req, res) => {
 const deleteGalleryByID = async (req, res) => {
   const { id } = req.params;
   try {
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({ msg: 'No data for this gallery' });
-    }
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(400).json({ msg: 'No data for this gallery' });
+
     await Gallery.deleteOne({ _id: id });
-    res.status(200).send({ massage: 'success delete gallery' });
-  } catch (e) {
+    res.status(200).send({ massage: 'Success delete gallery' });
+  } catch (error) {
     res.status(404);
-    res.send({ error: "gallery doesn't exist!", massage: e.massage });
+    res.send({ error: "Gallery doesn't exist!", massage: error.massage });
   }
 };
 
@@ -77,8 +84,8 @@ const updateGalleryByID = async (req, res) => {
       if (content.video) gallery.content.video = content.video;
     }
 
-    for (let key in categories) {
-      if (categories[key]) gallery.categories[key] = categories[key];
+    for (let items in categories) {
+      if (categories[items]) gallery.categories[items] = categories[items];
     }
 
     if (status != undefined && typeof status == 'boolean') status ? (gallery.status = true) : (gallery.status = false);
@@ -86,13 +93,13 @@ const updateGalleryByID = async (req, res) => {
     await gallery.save();
 
     res.json({
-      massage: 'success update gallery',
+      massage: 'Success update gallery',
       data: gallery,
     });
-  } catch (e) {
+  } catch (error) {
     res.status(500).send({
-      message: 'server error',
-      error: e.message,
+      message: 'Server Error',
+      error: error.message,
     });
   }
 };
