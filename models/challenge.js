@@ -21,10 +21,12 @@ const challengeSchema = new Schema({
     // maxLength: 10000,
   },
   content: {
-    image: {
-      type: String,
-      required: true,
-    },
+    image: [
+      {
+        type: String,
+        required: true,
+      },
+    ],
     video: {
       type: String,
       required: false,

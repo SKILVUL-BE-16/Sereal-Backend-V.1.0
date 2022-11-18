@@ -79,7 +79,9 @@ const updateChallengeByID = async (req, res) => {
     if (requirement) challenge.requirement = requirement;
 
     if (content) {
-      if (content.image) challenge.content.image = content.image;
+      for (let items in content.image) {
+        if (content.image[items]) challenge.content.image[items] = content.image[items];
+      }
 
       if (content.video) challenge.content.video = content.video;
     }
