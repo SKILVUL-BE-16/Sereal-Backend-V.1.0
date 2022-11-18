@@ -6,19 +6,19 @@ const challengeSchema = new Schema({
     type: String,
     required: true,
     minLength: 10,
-    maxLength: 100,
+    // maxLength: 100,
   },
   description: {
     type: String,
     required: true,
     minLength: 10,
-    maxLength: 1000,
+    // maxLength: 1000,
   },
   requirement: {
     type: String,
     required: true,
     minLength: 10,
-    maxLength: 10000,
+    // maxLength: 10000,
   },
   content: {
     image: {
@@ -30,7 +30,7 @@ const challengeSchema = new Schema({
       required: false,
     },
   },
-  categories: [{ type: String, minLength: 1, maxLength: 3, required: true }],
+  categories: [{ type: String, minLength: 1, required: true }],
   status: {
     type: Boolean,
     default: false,
