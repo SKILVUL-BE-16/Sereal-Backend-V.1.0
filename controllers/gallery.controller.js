@@ -41,7 +41,7 @@ const createGallery = (req, res) => {
   gallery.save(function (err) {
     if (err) {
       res.status(500).json({
-        massage: err,
+        message: err.message,
       });
     } else {
       res.status(201).json({
@@ -58,10 +58,10 @@ const deleteGalleryByID = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(400).json({ msg: 'No data for this gallery' });
 
     await Gallery.deleteOne({ _id: id });
-    res.status(200).send({ massage: 'Success delete gallery' });
+    res.status(200).send({ message: 'Success delete gallery' });
   } catch (error) {
     res.status(404);
-    res.send({ error: "Gallery doesn't exist!", massage: error.massage });
+    res.send({ error: "Gallery doesn't exist!", message: error.message });
   }
 };
 
@@ -93,7 +93,7 @@ const updateGalleryByID = async (req, res) => {
     await gallery.save();
 
     res.json({
-      massage: 'Success update gallery',
+      message: 'Success update gallery',
       data: gallery,
     });
   } catch (error) {

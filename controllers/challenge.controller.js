@@ -41,7 +41,7 @@ const createChallenge = (req, res) => {
   challenge.save(function (err) {
     if (err) {
       res.status(500).json({
-        massage: err,
+        massage: err.message,
       });
     } else {
       res.status(201).json({
@@ -58,10 +58,10 @@ const deleteChallengeByID = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(400).json({ msg: 'No data for this challenge' });
 
     await Challenge.deleteOne({ _id: id });
-    res.status(200).send({ massage: 'Success delete challenge' });
+    res.status(200).send({ message: 'Success delete challenge' });
   } catch (error) {
     res.status(404);
-    res.send({ error: "Challenge doesn't exist!", massage: error.massage });
+    res.send({ error: "Challenge doesn't exist!", message: error.message });
   }
 };
 
@@ -95,7 +95,7 @@ const updateChallengeByID = async (req, res) => {
     await challenge.save();
 
     res.json({
-      massage: 'Success update challenge',
+      message: 'Success update challenge',
       data: challenge,
     });
   } catch (error) {

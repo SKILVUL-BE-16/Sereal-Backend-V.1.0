@@ -32,7 +32,13 @@ const challengeSchema = new Schema({
       required: false,
     },
   },
-  categories: [{ type: String, minLength: 1, required: true }],
+  categories: [
+    {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: 'Categories',
+      required: true,
+    },
+  ],
   status: {
     type: Boolean,
     default: false,
