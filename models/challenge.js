@@ -21,16 +21,24 @@ const challengeSchema = new Schema({
     // maxLength: 10000,
   },
   content: {
-    image: {
-      type: String,
-      required: true,
-    },
+    image: [
+      {
+        type: String,
+        required: true,
+      },
+    ],
     video: {
       type: String,
       required: false,
     },
   },
-  categories: [{ type: String, minLength: 1, required: true }],
+  categories: [
+    {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: 'Categories',
+      required: true,
+    },
+  ],
   status: {
     type: Boolean,
     default: false,

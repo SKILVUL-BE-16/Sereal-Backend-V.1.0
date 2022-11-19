@@ -27,30 +27,6 @@
         ],
         "summary": "Get all challenges",
         "description": "Get all active challenge by default",
-        "parameters": [
-          {
-            "name": "categories",
-            "in": "query",
-            "required": false,
-            "description": "Filter Challenge by categories",
-            "schema": {
-              "type": "string",
-              "nullable": true,
-              "minLength": 1,
-              "maxLength": 20
-            },
-            "examples": {
-              "digital-art": {
-                "value": "digital-art",
-                "description": "Will filter challenge where category is digital art"
-              },
-              "melukis": {
-                "value": "melukis",
-                "description": "Will filter challenge where category is melukis"
-              }
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -150,6 +126,9 @@
                 }
               }
             }
+          },
+          "500": {
+            "$ref": "#/components/responses/resError500"
           }
         }
       }
@@ -169,8 +148,7 @@
             "description": "sent specific id here",
             "schema": {
               "type": "string",
-              "minLength": 1,
-              "maxLength": 100
+              "minLength": 1
             },
             "examples": {
               "id_1": {
@@ -237,8 +215,31 @@
               }
             }
           },
-          "404": {
-            "$ref": "#/components/responses/resError404"
+          "500": {
+            "$ref": "#/components/responses/resError500"
+          },
+          "400": {
+            "description": "not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "massage": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "no_data": {
+                    "description": "no data with this id ",
+                    "value": {
+                      "massage": "No data for this challenge"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -288,8 +289,7 @@
             "description": "challenge id for update",
             "schema": {
               "type": "string",
-              "minLength": 1,
-              "maxLength": 100
+              "minLength": 1
             },
             "examples": {
               "id_1": {
@@ -358,8 +358,7 @@
             "description": "challenge id for delete",
             "schema": {
               "type": "string",
-              "minLength": 1,
-              "maxLength": 100
+              "minLength": 1
             }
           }
         ],
@@ -397,17 +396,14 @@
         "properties": {
           "title": {
             "type": "string",
-            "maxLength": 100,
             "minLength": 10
           },
           "description": {
             "type": "string",
-            "maxLength": 1000,
             "minLength": 10
           },
           "requirement": {
             "type": "string",
-            "maxLength": 10000,
             "minLength": 10
           },
           "content": {
@@ -501,6 +497,29 @@
                 "value": {
                   "massage": "Challenge doesn't exist!",
                   "status": false
+                }
+              }
+            }
+          }
+        }
+      },
+      "resError500": {
+        "description": "Server Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              }
+            },
+            "examples": {
+              "failed": {
+                "description": "Challenge doesn't exist or server error",
+                "value": {
+                  "massage": "Server Error or mongose throw error"
                 }
               }
             }

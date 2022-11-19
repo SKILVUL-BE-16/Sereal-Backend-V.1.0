@@ -1,17 +1,11 @@
 const mongoose = require('mongoose');
-const { Schema } = mongoose;
+const { Schema } = mongoose
 
-const gallerySchema = new Schema({
+const materiSchema = new Schema({
   title: {
     type: String,
     required: true,
     minLength: 10,
-    // maxLength: 100,
-  },
-  author: {
-    type: String,
-    required: true,
-    minLength: 3,
     // maxLength: 100,
   },
   description: {
@@ -23,25 +17,21 @@ const gallerySchema = new Schema({
   content: {
     image: {
       type: String,
+      required: true,
     },
     video: {
       type: String,
+      required: false,
     },
   },
-  categories: [
-    {
-      type: mongoose.SchemaTypes.ObjectId,
-      ref: 'Categories',
-      required: true,
-    },
-  ],
+  categories: [{ type: String, minLength: 1, required: true }],
   status: {
     type: Boolean,
     default: false,
     required: true,
   },
-});
+})
 
-const Gallery = mongoose.model('Gallery', gallerySchema);
+const Materi = mongoose.model("Materi", materiSchema)
 
-module.exports = Gallery;
+module.exports = Materi
