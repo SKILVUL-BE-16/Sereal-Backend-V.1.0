@@ -6,8 +6,11 @@ const getAllChallenge = async (req, res) => {
     const challenge = await Challenge.find({}, '-__v');
 
     res.status(200).json(challenge);
-  } catch (e) {
-    console.log(e);
+  } catch (error) {
+    res.status(500).send({
+      message: 'Server Error',
+      error: error.message,
+    });
   }
 };
 
@@ -18,10 +21,15 @@ const getChallengeByID = async (req, res) => {
   try {
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(400).json({ message: 'No data for this challenge' });
     const challenge = await Challenge.findOne({ _id: id });
-    res.status(200).json([challenge]);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server Error');
+    res.status(200).json({
+      message: `Get challenge with id ${id} success`,
+      data: challenge,
+    });
+  } catch (error) {
+    res.status(500).send({
+      message: 'Server Error',
+      error: error.message,
+    });
   }
 };
 
@@ -33,7 +41,7 @@ const createChallenge = (req, res) => {
   challenge.save(function (err) {
     if (err) {
       res.status(500).json({
-        massage: err,
+        massage: err.message,
       });
     } else {
       res.status(201).json({
@@ -47,14 +55,13 @@ const createChallenge = (req, res) => {
 const deleteChallengeByID = async (req, res) => {
   const { id } = req.params;
   try {
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({ msg: 'No data for this challenge' });
-    }
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(400).json({ msg: 'No data for this challenge' });
+
     await Challenge.deleteOne({ _id: id });
-    res.status(200).send({ massage: 'success delete challenge' });
-  } catch {
+    res.status(200).send({ message: 'Success delete challenge' });
+  } catch (error) {
     res.status(404);
-    res.send({ error: "Challenge doesn't exist!" });
+    res.send({ error: "Challenge doesn't exist!", message: error.message });
   }
 };
 
@@ -72,13 +79,15 @@ const updateChallengeByID = async (req, res) => {
     if (requirement) challenge.requirement = requirement;
 
     if (content) {
-      if (content.image) challenge.content.image = content.image;
+      for (let items in content.image) {
+        if (content.image[items]) challenge.content.image[items] = content.image[items];
+      }
 
       if (content.video) challenge.content.video = content.video;
     }
 
-    for (let key in categories) {
-      if (categories[key]) challenge.categories[key] = categories[key];
+    for (let items in categories) {
+      if (categories[items]) challenge.categories[items] = categories[items];
     }
 
     if (status != undefined && typeof status == 'boolean') status ? (challenge.status = true) : (challenge.status = false);
@@ -86,13 +95,13 @@ const updateChallengeByID = async (req, res) => {
     await challenge.save();
 
     res.json({
-      massage: 'success',
+      message: 'Success update challenge',
       data: challenge,
     });
-  } catch (e) {
+  } catch (error) {
     res.status(500).send({
-      message: 'server error',
-      error: e.message,
+      message: 'Server Error',
+      error: error.message,
     });
   }
 };
