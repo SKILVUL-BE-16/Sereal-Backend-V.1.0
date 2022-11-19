@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const authorize = require('../middleware/authorize')
 
 const {
   getAllMateri,
@@ -11,8 +12,8 @@ const {
 
 router.get("/", getAllMateri);
 router.get("/:id", getMateriByID);
-router.post("/", addMateri);
-router.put("/:id", updateMateriByID);
-router.delete("/:id", deleteMateriByID);
+router.post("/", authorize, addMateri);
+router.put("/:id", authorize, updateMateriByID);
+router.delete("/:id", authorize, deleteMateriByID);
 
 module.exports = router;
