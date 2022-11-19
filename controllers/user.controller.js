@@ -1,47 +1,62 @@
 const bcrypt = require("bcrypt");
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 require("dotenv").config();
 
 module.exports = {
+  // post: /register
   register: (req, res) => {
     const data = req.body;
+    // kurang 
+    try {
+      const saltRounds = 10;
+      const hash = bcrypt.hashSync(data.password, saltRounds);
+      data.password = hash;
+      const user = new User(data);
 
-    const saltRounds = 10;
-    const hash = bcrypt.hashSync(data.password, saltRounds);
-    data.password = hash;
-    const user = new User(data);
+      user.save();
 
-    user.save();
-
-    res.json({
-      message: "data has been created!!",
-    });
+      res.status(200).json({
+        message: "data has been created!!",
+      });
+    } catch (error) {
+      res.status(500).send({
+        message: "server error",
+        error: error.message,
+      });
+    }
   },
   // post: /login
   login: async (req, res) => {
     const data = req.body;
-    const user = await User.findOne({ email: data.email });
-
-    if (!user) {
-      return res.status(404).json({
-        message: "Invalid username/password",
-      });
-    }
-    const checkPwd = bcrypt.compareSync(data.password, user.password);
-
-    if (checkPwd) {
-      const token = jwt.sign({ user }, process.env.TOKEN_KEY, {
-        expiresIn: 86400,
-      }); //expires in 24 hours
-      res.header("x-access-token", token).status(200).json({
-        message: "Anda berhasil login",
-        token,
-      });
-    } else {
-      res.status(400).json({
-        message: "Login gagal",
+    try {
+      const user = await User.findOne({ email: data.email });
+      // bisa dibedakan lagi validator untuk username dan password
+      if (!user) {
+        return res.status(404).json({
+          message: "Invalid username/password",
+        });
+      }
+      const checkPwd = bcrypt.compareSync(data.password, user.password);
+  
+      if (checkPwd) {
+        const token = jwt.sign({ user }, process.env.TOKEN_KEY, {
+          expiresIn: 86400,
+        }); //expires in 24 hours
+        res.header("x-access-token", token).status(200).json({
+          message: "Anda berhasil login",
+          token,
+        });
+      } else {
+        res.status(400).json({
+          message: "Login gagal",
+        });
+      }  
+    } catch (error) {
+      res.status(500).send({
+        message: "server error",
+        error: error.message,
       });
     }
   },
