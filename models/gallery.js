@@ -30,7 +30,7 @@ const gallerySchema = new Schema({
   },
   categories: [
     {
-      type: mongoose.SchemaTypes.ObjectId,
+      type: mongoose.ObjectId,
       ref: 'Categories',
       required: true,
     },

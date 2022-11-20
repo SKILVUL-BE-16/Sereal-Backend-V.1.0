@@ -2,7 +2,11 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const categoriesSchema = new Schema({
-  nama: String,
+  nama: {
+    type: String,
+    required: true,
+    minLength: 3,
+  },
 });
 
 const Categories = mongoose.model('Categories', categoriesSchema);

@@ -5,7 +5,10 @@ const getAllGallery = async (req, res) => {
   try {
     const gallery = await Gallery.find({}, '-__v');
 
-    res.status(200).json(gallery);
+    res.status(200).json({
+      message: 'Success get all gallery',
+      data: gallery,
+    });
   } catch (error) {
     res.status(500).send({
       message: 'Server Error',
@@ -22,7 +25,7 @@ const getGalleryByID = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(400).json({ message: 'No data for this gallery' });
     const gallery = await Gallery.findOne({ _id: id });
     res.status(200).json({
-      message: `Get user with id ${id} success`,
+      message: `Get gallery with id ${id} success`,
       data: gallery,
     });
   } catch (error) {
