@@ -142,21 +142,13 @@ module.exports = {
       if (data.jns.kelamin) {
         user.jns.kelamin = data.jns.kelamin;
       }
-      for (let item in data.kelas.complete) {
-        if (data.kelas.complete[item])
-          user.kelas.complete[item] = data.kelas.complete[item];
+      for (let item in data.kelas) {
+        if (data.kelas[item])
+          user.kelas[item] = data.kelas[item];
       }
-      for (let item in data.kelas.progress) {
-        if (data.kelas.progress[item])
-          user.kelas.progress[item] = data.kelas.progress[item];
-      }
-      for (let item in data.challenge.complete) {
-        if (data.challenge.complete[item])
-          user.challenge.complete[item] = data.challenge.complete[item];
-      }
-      for (let item in data.challenge.progress) {
-        if (data.challenge.progress[item])
-          user.challenge.progress[item] = data.challenge.progress[item];
+      for (let item in data.challenge) {
+        if (data.challenge[item])
+          user.challenge[item] = data.challenge[item];
       }
       if (data.social_media.insta) {
         user.social_media.insta = data.social_media.insta;
