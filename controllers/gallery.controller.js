@@ -5,7 +5,10 @@ const getAllGallery = async (req, res) => {
   try {
     const gallery = await Gallery.find({}, '-__v');
 
-    res.status(200).json(gallery);
+    res.status(200).json({
+      message: 'Success get all gallery',
+      data: gallery,
+    });
   } catch (error) {
     res.status(500).send({
       message: 'Server Error',
