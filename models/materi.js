@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { Schema } = mongoose
+const { Schema } = mongoose;
 
 const materiSchema = new Schema({
   title: {
@@ -24,14 +24,20 @@ const materiSchema = new Schema({
       required: false,
     },
   },
-  categories: [{ type: String, minLength: 1, required: true }],
+  kelas: [
+    {
+      type: mongoose.ObjectId,
+      ref: 'Kelas',
+      required: true,
+    },
+  ],
   status: {
     type: Boolean,
     default: false,
     required: true,
   },
-})
+});
 
-const Materi = mongoose.model("Materi", materiSchema)
+const Materi = mongoose.model('Materi', materiSchema);
 
-module.exports = Materi
+module.exports = Materi;
