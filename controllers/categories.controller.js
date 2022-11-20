@@ -5,7 +5,10 @@ const getAllCategories = async (req, res) => {
   try {
     const categories = await Categories.find({}, '-__v');
 
-    res.status(200).json(categories);
+    res.status(200).json({
+      message: 'Success get all challenges',
+      data: categories,
+    });
   } catch (error) {
     res.status(500).send({
       message: 'Server Error',

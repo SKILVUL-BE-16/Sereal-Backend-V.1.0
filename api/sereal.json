@@ -33,7 +33,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/schemaGet"
+                  "$ref": "#/components/schemas/schemaGetChallenge2"
                 },
                 "examples": {
                   "success": {
@@ -88,7 +88,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/schemaPostAndPatch"
+                "$ref": "#/components/schemas/schemaGetChallenge"
               },
               "example": {
                 "title": "Dasar Melukis Dengan Tema HUT RI",
@@ -168,7 +168,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/schemaGet"
+                  "$ref": "#/components/schemas/schemaGetChallenge2"
                 },
                 "examples": {
                   "id_637xxx": {
@@ -234,7 +234,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/schemaPostAndPatch"
+                "$ref": "#/components/schemas/schemaGetChallenge"
               },
               "examples": {
                 "title": {
@@ -1685,7 +1685,7 @@
   },
   "components": {
     "schemas": {
-      "schemaPostAndPatch": {
+      "schemaGetChallenge": {
         "type": "object",
         "properties": {
           "title": {
@@ -1736,7 +1736,7 @@
           }
         }
       },
-      "schemaGet": {
+      "schemaGetChallenge2": {
         "type": "array",
         "items": {
           "type": "object",

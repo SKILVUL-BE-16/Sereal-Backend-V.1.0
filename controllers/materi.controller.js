@@ -1,13 +1,19 @@
-const Materi = require("../models/materi");
+const Materi = require('../models/materi');
 
 module.exports = {
   getAllMateri: async (req, res) => {
     try {
-      const materi = await Materi.find({}, "-__v");
+      const materi = await Materi.find({}, '-__v');
 
-      res.status(200).json(materi);
-    } catch (e) {
-      console.log(e);
+      res.status(200).json({
+        message: 'Success get all materi',
+        data: materi,
+      });
+    } catch (error) {
+      res.status(500).send({
+        message: 'Server Error',
+        error: error.message,
+      });
     }
   },
 
@@ -15,13 +21,17 @@ module.exports = {
     const { id } = req.params;
 
     try {
-      if (!mongoose.Types.ObjectId.isValid(id))
-        return res.status(400).json({ message: "No data for this materi" });
+      if (!mongoose.Types.ObjectId.isValid(id)) return res.status(400).json({ message: 'No data for this materi' });
       const materi = await Materi.findOne({ _id: id });
-      res.status(200).json([materi]);
-    } catch (err) {
-      console.error(err.message);
-      res.status(500).send("Server Error");
+      res.status(200).json({
+        message: `Get materi with id ${id} success`,
+        data: materi,
+      });
+    } catch (error) {
+      res.status(500).send({
+        message: 'Server Error',
+        error: error.message,
+      });
     }
   },
 
@@ -36,7 +46,7 @@ module.exports = {
         });
       } else {
         res.status(201).json({
-          message: "Materi has been created",
+          message: 'Materi has been created',
         });
       }
     });
@@ -62,19 +72,18 @@ module.exports = {
         if (categories[key]) materi.categories[key] = categories[key];
       }
 
-      if (status != undefined && typeof status == "boolean")
-        status ? (materi.status = true) : (materi.status = false);
+      if (status != undefined && typeof status == 'boolean') status ? (materi.status = true) : (materi.status = false);
 
       await materi.save();
 
       res.json({
-        massage: "success",
+        message: 'Success update materi',
         data: materi,
       });
-    } catch (e) {
+    } catch (error) {
       res.status(500).send({
-        message: "server error",
-        error: e.message,
+        message: 'Server Error',
+        error: error.message,
       });
     }
   },
@@ -83,13 +92,13 @@ module.exports = {
     const { id } = req.params;
     try {
       if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(400).json({ msg: "No data for this materi" });
+        return res.status(400).json({ msg: 'No data for this materi' });
       }
       await Materi.deleteOne({ _id: id });
-      res.status(200).send({ massage: "success delete materi" });
-    } catch {
+      res.status(200).send({ massage: 'Success delete materi' });
+    } catch (error) {
       res.status(404);
-      res.send({ error: "Materi doesn't exist!" });
+      res.send({ error: "Materi doesn't exist!", message: error.message });
     }
   },
 };

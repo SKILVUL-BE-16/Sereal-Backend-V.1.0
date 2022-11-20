@@ -7,7 +7,7 @@ const getAllChallenge = async (req, res) => {
 
     res.status(200).json({
       message: 'Success get all challenges',
-      data: challenges,
+      data: challenge,
     });
   } catch (error) {
     res.status(500).send({
