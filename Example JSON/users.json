@@ -9,26 +9,10 @@
   "sekolah": "IAIN",
   "tgl_lahir": "14/05/2000",
   "jns_kelamin": "pria",
-  "kelas": {
-    "complete": [
-      "id_class_1",
-      "id_class_2"
-    ],
-    "progress": [
-      "id_class_3",
-      "id_class_4"
-    ]
-  },
-  "challenge": {
-    "complete": [
-      "id_challenge_1",
-      "id_challenge_2"
-    ],
-    "progress": [
-      "id_challenge_3",
-      "id_challenge_4"
-    ]
-  },
+  "kelas": ["id_class_1",
+  "id_class_2"],
+  "challenge": ["id_challenge_1",
+  "id_challenge_2"],
   "social media": {
     "facebook": "nova@fb",
     "instagram": "nova@ig",
