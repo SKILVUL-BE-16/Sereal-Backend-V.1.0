@@ -5,6 +5,16 @@
 * mongoose
 * jsonwebtoken (jwt)
 * bcrypt
+## ERD
+![Sereal ERD](SEREAL_ERD.png)
+
+## Deploy Site
+- [Sereal Backend](https://sereal-backend.up.railway.app/)
+
+## API Documentation
+- [Open API spesification file](/api/sereal.json)
+ atau lewat swagger hub
+- [Swagger Hub sereal api spesification](https://app.swaggerhub.com/apis/yazidr1/sereal-app/1.0)
 
 ## APIs Specification
 ### Users
