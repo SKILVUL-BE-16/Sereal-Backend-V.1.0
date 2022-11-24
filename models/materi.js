@@ -15,22 +15,19 @@ const materiSchema = new Schema({
     // maxLength: 1000,
   },
   content: {
-    image: {
-      type: String,
-      required: true,
-    },
-    video: {
-      type: String,
-      required: false,
-    },
+    image: [
+      {
+        type: String,
+        required: true,
+      },
+    ],
+    video: [
+      {
+        type: String,
+        required: false,
+      },
+    ],
   },
-  kelas: [
-    {
-      type: mongoose.ObjectId,
-      ref: 'Kelas',
-      required: true,
-    },
-  ],
   status: {
     type: Boolean,
     default: false,
