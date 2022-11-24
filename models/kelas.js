@@ -14,6 +14,11 @@ const kelasSchema = new Schema({
       required: true,
     },
   ],
+  materi:[{
+    type: mongoose.ObjectId,
+    ref: 'Materi',
+    required: true
+  }],
   status: {
     type: Boolean,
     default: false,
