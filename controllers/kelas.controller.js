@@ -23,7 +23,7 @@ const getKelasByID = async (req, res) => {
 
   try {
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(400).json({ message: 'No data for this kelas' });
-    const kelas = await Kelas.findOne({ _id: id });
+    const kelas = await Kelas.findOne({ _id: id }).populate('materi');
     res.status(200).json({
       message: `Get kelas with id ${id} success`,
       data: kelas,
@@ -71,12 +71,15 @@ const deleteKelasByID = async (req, res) => {
 // update:id
 const updateKelasByID = async (req, res) => {
   const { id } = req.params;
-  const { name, categories, status } = req.body;
+  const { name, categories, status, materi } = req.body;
   try {
     const kelas = await Kelas.findOne({ _id: id });
 
     if (name) kelas.name = name;
 
+    for (let items in materi) {
+      if (materi[items]) kelas.materi[items] = materi[items];
+    }
     for (let items in categories) {
       if (categories[items]) kelas.categories[items] = categories[items];
     }

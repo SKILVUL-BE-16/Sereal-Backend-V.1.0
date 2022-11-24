@@ -24,13 +24,13 @@ const materiSchema = new Schema({
       required: false,
     },
   },
-  kelas: [
-    {
-      type: mongoose.ObjectId,
-      ref: 'Kelas',
-      required: true,
-    },
-  ],
+  // kelas: [
+  //   {
+  //     type: mongoose.ObjectId,
+  //     ref: 'Kelas',
+  //     required: true,
+  //   },
+  // ],
   status: {
     type: Boolean,
     default: false,
