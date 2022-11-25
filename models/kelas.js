@@ -26,6 +26,12 @@ const kelasSchema = new Schema({
       required: true,
     },
   ],
+  level: {
+    type: String,
+    required: true,
+    enum: ['Pemula', 'Menegah', 'Mahir'],
+    default: 'Pemula',
+  },
   status: {
     type: Boolean,
     default: false,

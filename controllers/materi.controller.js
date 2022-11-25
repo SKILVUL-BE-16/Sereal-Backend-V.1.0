@@ -54,13 +54,13 @@ module.exports = {
 
   updateMateriByID: async (req, res) => {
     const { id } = req.params;
-    const { title, description, content, categories, status } = req.body;
+    const { title, body, content, status } = req.body;
     try {
       const materi = await Materi.findOne({ _id: id });
 
       if (title) materi.title = title;
 
-      if (description) materi.description = description;
+      if (body) materi.body = body;
 
       if (content) {
         for (let items in content.image) {

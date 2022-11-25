@@ -8,7 +8,7 @@ const materiSchema = new Schema({
     minLength: 10,
     // maxLength: 100,
   },
-  description: {
+  body: {
     type: String,
     required: true,
     minLength: 10,
