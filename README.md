@@ -69,32 +69,498 @@
 }
 ```
 
-- #### Kelas
-- Method : GET
-- Endpoint : /kelas
-- Header: x-access-token = "token"
-- Body :
+### Materi
 
-```
+#### Get All Materi
+
+Request :
+
+- Method: **GET**
+- Endpoint: `/materi `
+- Header:
+  - accept:application/json
+
+Response :
+
+- Status code: **200**
+
+```json
 {
-     "name": String,
-     "categories": categories.ObjectId,
-     "status" Boolean
+    "massage":"string",
+    "data":[
+        {
+            "id":"string, unique",
+            "title":"string",
+            "body":"string",
+            "content":{
+                "image":"[string]",
+                "video":"[string]"
+            },
+            "status":boolean
+        },
+        {
+            "id":"string, unique",
+            "title":"string",
+            "body":"string",
+            "content":{
+                "image":"[string]",
+                "video":"[string]"
+            },
+            "status":boolean
+        }
+    ]
 }
 ```
 
-- Response :
+- Status code: **500**
 
-```
+```json
 {
-     "message": "Success get all kelas",
-     "data": [
-       {
-           "_id": String,
-           "name": String,
-           "categories": "categories.ObjectId",
-           "status": Boolean
+  "message": "string",
+  "error": "string"
+}
+```
+
+#### Get Materi by ID
+
+Request :
+
+- Method: **GET**
+- Endpoint: `/materi/{materi_id}`
+- Header:
+  - accept:application/json
+
+Response:
+
+- Status code: **200**
+
+```json
+{
+    "massage":"string",
+    "data":{
+            "id":"string, unique",
+            "title":"string",
+            "body":"string",
+            "content":{
+                "image":"[string]",
+                "video":"[string]"
+            },
+            "status":boolean
+    }
+
+}
+```
+
+- Status code: **400**
+
+```json
+{
+  "message": "string"
+}
+```
+
+#### Create Materi
+
+Request :
+
+- Method: **POST**
+- Endpoint: `/materi`
+- Header:
+  - Content-type:application/json
+  - accept:application/json
+  - x-access-token = "token"
+- Body:
+
+```json
+{
+    "id":"string, unique",
+    "title":"string",
+    "body":"string",
+    "content":{
+        "image":"[string]",
+        "video":"[string]"
+    },
+    "status":boolean
+}
+```
+
+Response:
+
+- Status code: **201**
+
+```json
+{
+  "message": "string"
+}
+```
+
+- Status code: **500**
+
+```json
+{
+  "message": "string",
+  "error": "string"
+}
+```
+
+#### Update Materi
+
+Request :
+
+- Method: **PATCH**
+- Endpoint: `/materi/{materi_id}`
+- Header:
+  - Content-type:application/json
+  - accept:application/json
+  - x-access-token = "token"
+- Body:
+
+```json
+{
+    "title":"string",
+    "body":"string",
+    "content":{
+        "image":"[string]",
+        "video":"[string]"
+    },
+    "status":boolean
+}
+```
+
+Responses:
+
+- Status code: **201**
+
+```json
+{
+  "message": "string"
+}
+```
+
+- Status code: **500**
+
+```json
+{
+  "message": "string",
+  "error": "string"
+}
+```
+
+#### Delete Materi
+
+Request :
+
+- Method: **Delete**
+- Endpoint: `/materi/{materi_id}`
+- Header:
+  - accept:application/json
+  - x-access-token = "token"
+
+Response:
+
+- Status code: **200**
+
+```json
+{
+  "message": "string"
+}
+```
+
+- Status code: **404**
+
+```json
+{
+  "message": "string",
+  "error": "string"
+}
+```
+
+### Kelas
+
+#### Get All Kelas
+
+Request :
+
+- Method: **GET**
+- Endpoint: `/kelas `
+- Header:
+  - accept:application/json
+
+Response :
+
+- Status code: **200**
+
+```json
+{
+    "massage":"string",
+    "data":[
+        {
+            "id":"string, unique",
+            "title":"string",
+            "description":"string",
+            "materi":[
+              {
+                  "id":"string, unique",
+                  "title":"string",
+                  "body":"string",
+                  "content":{
+                      "image":"[string]",
+                      "video":"[string]"
+                  },
+                  "status":boolean
+              },
+              {
+                  "id":"string, unique",
+                  "title":"string",
+                  "body":"string",
+                  "content":{
+                      "image":"[string]",
+                      "video":"[string]"
+                  },
+                  "status":boolean
+              }
+            ],
+            "categories":[
+              {
+                "id":"string, unique",
+                "name":"string"
+              },
+              {
+                "id":"string, unique",
+                "name":"string"
+              }
+            ],
+            "level":"string"
+            "status":boolean
+        },
+        {
+            "id":"string, unique",
+            "title":"string",
+            "description":"string",
+            "materi":[
+              {
+                  "id":"string, unique",
+                  "title":"string",
+                  "body":"string",
+                  "content":{
+                      "image":"[string]",
+                      "video":"[string]"
+                  },
+                  "status":boolean
+              },
+              {
+                  "id":"string, unique",
+                  "title":"string",
+                  "body":"string",
+                  "content":{
+                      "image":"[string]",
+                      "video":"[string]"
+                  },
+                  "level":"string"
+                  "status":boolean
+              }
+            ],
+            "categories":[
+              {
+                "id":"string, unique",
+                "name":"string"
+              },
+              {
+                "id":"string, unique",
+                "name":"string"
+              }
+            ],
+            "level":"string",
+            "status":boolean
         }
-     ]
-  }
+    ]
+}
+```
+
+- Status code: **500**
+
+```json
+{
+  "message": "string",
+  "error": "string"
+}
+```
+
+#### Get Kelas by ID
+
+Request :
+
+- Method: **GET**
+- Endpoint: `/kelas/{kelas_id}`
+- Header:
+  - accept:application/json
+
+Response:
+
+- Status code: **200**
+
+```json
+{
+    "massage":"string",
+    "data":{
+            "id":"string, unique",
+            "title":"string",
+            "description":"string",
+            "materi":[
+              {
+                  "id":"string, unique",
+                  "title":"string",
+                  "body":"string",
+                  "content":{
+                      "image":"[string]",
+                      "video":"[string]"
+                  },
+                  "status":boolean
+              },
+              {
+                  "id":"string, unique",
+                  "title":"string",
+                  "body":"string",
+                  "content":{
+                      "image":"[string]",
+                      "video":"[string]"
+                  },
+                  "status":boolean
+              }
+            ],
+            "categories":[
+              {
+                "id":"string, unique",
+                "name":"string"
+              },
+              {
+                "id":"string, unique",
+                "name":"string"
+              }
+            ],
+            "level":"string",
+            "status":boolean
+        }
+
+}
+```
+
+- Status code: **400**
+
+```json
+{
+  "message": "string"
+}
+```
+
+#### Create Kelas
+
+Request :
+
+- Method: **POST**
+- Endpoint: `/kelas`
+- Header:
+  - Content-type:application/json
+  - accept:application/json
+  - x-access-token = "token"
+- Body:
+
+```json
+{
+    "title":"string",
+    "description":"string",
+    "materi":[objectID],
+    "categories":[objectID],
+    "level":"string",
+    "status":boolean
+}
+```
+
+Response:
+
+- Status code: **201**
+
+```json
+{
+  "message": "string"
+}
+```
+
+- Status code: **500**
+
+```json
+{
+  "message": "string",
+  "error": "string"
+}
+```
+
+#### Update Kelas
+
+Request :
+
+- Method: **PATCH**
+- Endpoint: `/kelas/{kelas_id}`
+- Header:
+  - Content-type:application/json
+  - accept:application/json
+- Body:
+
+```json
+{
+    "title":"string",
+    "description":"string",
+    "materi":[objectID],
+    "categories":[objectID],
+    "level":"string",
+    "status":boolean
+}
+```
+
+Responses:
+
+- Status code: **201**
+
+```json
+{
+  "message": "string"
+}
+```
+
+- Status code: **500**
+
+```json
+{
+  "message": "string",
+  "error": "string"
+}
+```
+
+#### Delete Kelas
+
+Request :
+
+- Method: **Delete**
+- Endpoint: `/kelas/{kelas_id}`
+- Header:
+  - accept:application/json
+  - x-access-token = "token"
+
+Response:
+
+- Status code: **200**
+
+```json
+{
+  "message": "string"
+}
+```
+
+- Status code: **404**
+
+```json
+{
+  "message": "string",
+  "error": "string"
+}
 ```
