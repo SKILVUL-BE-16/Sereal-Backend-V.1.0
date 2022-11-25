@@ -1,5 +1,5 @@
 const Materi = require('../models/materi');
-
+const mongoose = require('mongoose');
 module.exports = {
   getAllMateri: async (req, res) => {
     try {

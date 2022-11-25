@@ -28,15 +28,15 @@
 
 - #### Register
 - Method : POST
-- Endpoint : /user/register
+- Endpoint : /register
 - Body :
 
 ```
 {
-    "name": "String",
-    "email": "String",
-    "password": "String"
-
+    "name": String,
+    "email": String,
+    "password": String,
+    "role": String
 }
 ```
 
@@ -50,7 +50,7 @@
 
 - #### Login
 - Method : POST
-- Endpoint : /user/login
+- Endpoint : /login
 - Body :
 
 ```
@@ -128,10 +128,10 @@ Request :
 - Method: **GET**
 - Endpoint: `/materi/{materi_id}`
 - Header:
-
   - accept:application/json
 
-- Response:
+Response:
+
 - Status code: **200**
 
 ```json
@@ -168,6 +168,7 @@ Request :
 - Header:
   - Content-type:application/json
   - accept:application/json
+  - x-access-token = "token"
 - Body:
 
 ```json
@@ -211,6 +212,7 @@ Request :
 - Header:
   - Content-type:application/json
   - accept:application/json
+  - x-access-token = "token"
 - Body:
 
 ```json
@@ -252,6 +254,7 @@ Request :
 - Endpoint: `/materi/{materi_id}`
 - Header:
   - accept:application/json
+  - x-access-token = "token"
 
 Response:
 
@@ -327,6 +330,7 @@ Response :
                 "name":"string"
               }
             ],
+            "level":"string"
             "status":boolean
         },
         {
@@ -352,6 +356,7 @@ Response :
                       "image":"[string]",
                       "video":"[string]"
                   },
+                  "level":"string"
                   "status":boolean
               }
             ],
@@ -388,10 +393,10 @@ Request :
 - Method: **GET**
 - Endpoint: `/kelas/{kelas_id}`
 - Header:
-
   - accept:application/json
 
-- Response:
+Response:
+
 - Status code: **200**
 
 ```json
@@ -457,6 +462,7 @@ Request :
 - Header:
   - Content-type:application/json
   - accept:application/json
+  - x-access-token = "token"
 - Body:
 
 ```json
@@ -538,6 +544,7 @@ Request :
 - Endpoint: `/kelas/{kelas_id}`
 - Header:
   - accept:application/json
+  - x-access-token = "token"
 
 Response:
 
