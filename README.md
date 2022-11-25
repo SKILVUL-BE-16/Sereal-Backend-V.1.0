@@ -365,6 +365,7 @@ Response :
                 "name":"string"
               }
             ],
+            "level":"string",
             "status":boolean
         }
     ]
@@ -432,6 +433,7 @@ Request :
                 "name":"string"
               }
             ],
+            "level":"string",
             "status":boolean
         }
 
@@ -463,6 +465,7 @@ Request :
     "description":"string",
     "materi":[objectID],
     "categories":[objectID],
+    "level":"string",
     "status":boolean
 }
 ```
@@ -503,6 +506,7 @@ Request :
     "description":"string",
     "materi":[objectID],
     "categories":[objectID],
+    "level":"string",
     "status":boolean
 }
 ```
