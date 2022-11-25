@@ -70,7 +70,7 @@ const deleteKelasByID = async (req, res) => {
   try {
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(400).json({ msg: 'No data for this kelas' });
 
-    await kelas.deleteOne({ _id: id });
+    await Kelas.deleteOne({ _id: id });
     res.status(200).send({ message: 'Success delete kelas' });
   } catch (error) {
     res.status(404);
@@ -81,7 +81,7 @@ const deleteKelasByID = async (req, res) => {
 // update:id
 const updateKelasByID = async (req, res) => {
   const { id } = req.params;
-  
+
   const { title, description, materi, categories, status, level } = req.body;
 
   try {
