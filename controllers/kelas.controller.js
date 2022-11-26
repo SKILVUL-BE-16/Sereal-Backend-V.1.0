@@ -92,14 +92,11 @@ const updateKelasByID = async (req, res) => {
     if (description) kelas.description = description;
 
     for (let items in materi) {
-      if (materi[items]) kelas.materi[items] = materi[items];
+      if (!kelas.materi.includes(materi[items])) kelas.materi.push(materi[items]);
     }
 
-    for (let items in materi) {
-      if (materi[items]) kelas.materi[items] = materi[items];
-    }
     for (let items in categories) {
-      if (categories[items]) kelas.categories[items] = categories[items];
+      if (!kelas.categories.includes(categories[items])) kelas.categories.push(categories[items]);
     }
 
     if (level) kelas.level = level;
