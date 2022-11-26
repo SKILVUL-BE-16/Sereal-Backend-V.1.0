@@ -7,6 +7,11 @@ const kelasSchema = new Schema({
     required: true,
     minLength: 10,
   },
+  image: {
+    type: String,
+    required: true,
+    minLength: 10,
+  },
   description: {
     type: String,
     required: true,
