@@ -88,7 +88,7 @@ const updateGalleryByID = async (req, res) => {
     }
 
     for (let items in categories) {
-      if (categories[items]) gallery.categories[items] = categories[items];
+      if (!gallery.categories.includes(categories[items])) gallery.categories.push(categories[items]);
     }
 
     if (status != undefined && typeof status == 'boolean') status ? (gallery.status = true) : (gallery.status = false);

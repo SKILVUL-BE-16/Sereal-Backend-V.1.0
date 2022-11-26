@@ -16,7 +16,7 @@ router.use('/materi', materiRouter);
 router.use('/challenge', challengeRouter);
 router.use('/gallery', galleryRouter);
 router.use('/kelas', kelasRouter);
-router.use('/user', authorize, userRouter);
+router.use('/users', authorize, userRouter);
 router.use('/categories', categoriesRouter);
 
 module.exports = router;

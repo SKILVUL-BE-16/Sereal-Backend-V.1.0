@@ -10,6 +10,9 @@ module.exports = {
     const data = req.body;
     // kurang 
     try {
+      if(data.name.length == 0 || data.email.length == 0 | data.password.length == 0){
+        return res.status(406).send("fill the required properties")
+      }
       const saltRounds = 10;
       const hash = bcrypt.hashSync(data.password, saltRounds);
       data.password = hash;
@@ -64,7 +67,7 @@ module.exports = {
   // get:/
   getAllUser: async (req, res) => {
     try {
-      const user = await User.find({}, "-__v");
+      const user = await User.find({}, "-__v -role -createdAt -password -updatedAt");
       // console.log(req.user.user.email)
       res.json({
         message: "get all user success",
@@ -84,7 +87,7 @@ module.exports = {
     try {
       if (!mongoose.Types.ObjectId.isValid(id))
         return res.status(400).json({ message: "invalid id" });
-      const user = await User.findById(id);
+      const user = await User.findById(id, "-__v -role -createdAt -password -updatedAt");
       res.status(200).json({
         message: "get a user succes",
         data: user,
@@ -130,9 +133,9 @@ module.exports = {
       if (data.password) {
         user.password = data.password;
       }
-      if (data.role) {
-        user.role = data.role;
-      }
+      // if (data.role) {
+      //   user.role = data.role;
+      // }
       if (data.sekolah) {
         user.sekolah = data.sekolah;
       }
@@ -142,21 +145,13 @@ module.exports = {
       if (data.jns.kelamin) {
         user.jns.kelamin = data.jns.kelamin;
       }
-      for (let item in data.kelas.complete) {
-        if (data.kelas.complete[item])
-          user.kelas.complete[item] = data.kelas.complete[item];
+      for (let item in data.kelas) {
+        if (data.kelas[item])
+          user.kelas[item] = data.kelas[item];
       }
-      for (let item in data.kelas.progress) {
-        if (data.kelas.progress[item])
-          user.kelas.progress[item] = data.kelas.progress[item];
-      }
-      for (let item in data.challenge.complete) {
-        if (data.challenge.complete[item])
-          user.challenge.complete[item] = data.challenge.complete[item];
-      }
-      for (let item in data.challenge.progress) {
-        if (data.challenge.progress[item])
-          user.challenge.progress[item] = data.challenge.progress[item];
+      for (let item in data.challenge) {
+        if (data.challenge[item])
+          user.challenge[item] = data.challenge[item];
       }
       if (data.social_media.insta) {
         user.social_media.insta = data.social_media.insta;
@@ -188,8 +183,8 @@ module.exports = {
   // sekolah
   // tgl_lahir
   // jns_kelamin
-  // kelas: complete: [] , progress: []
-  // challenge: complete: [] , progress: []
+  // kelas: []
+  // challenge: []
   // social_media: insta: ,fb: , other:
 
   // delete: /:id

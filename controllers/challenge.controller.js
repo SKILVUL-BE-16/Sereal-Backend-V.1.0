@@ -90,7 +90,7 @@ const updateChallengeByID = async (req, res) => {
     }
 
     for (let items in categories) {
-      if (categories[items]) challenge.categories[items] = categories[items];
+      if (!challenge.categories.includes(categories[items])) challenge.categories.push(categories[items]);
     }
 
     if (status != undefined && typeof status == 'boolean') status ? (challenge.status = true) : (challenge.status = false);
