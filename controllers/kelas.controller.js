@@ -4,9 +4,8 @@ const mongoose = require('mongoose');
 const getAllKelas = async (req, res) => {
   try {
     if (JSON.stringify(req.query) !== '{}') {
-      // const key = Object.keys(req.query)[0];
       const value = Object.values(req.query)[0];
-      kelas = await Kelas.find({ categories: { _id: value } }, '-__v').populate('materi categories');
+      kelas = await Kelas.find({ categories: value }, '-__v').populate('materi categories');
       res.status(200).json({
         message: 'Success get kelas by categories',
         data: kelas,
