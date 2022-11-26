@@ -4,9 +4,8 @@ const mongoose = require('mongoose');
 const getAllKelas = async (req, res) => {
   try {
     if (JSON.stringify(req.query) !== '{}') {
-      // const key = Object.keys(req.query)[0];
       const value = Object.values(req.query)[0];
-      kelas = await Kelas.find({ categories: { _id: value } }, '-__v').populate('materi categories');
+      kelas = await Kelas.find({ categories: value }, '-__v').populate('materi categories');
       res.status(200).json({
         message: 'Success get kelas by categories',
         data: kelas,
@@ -92,14 +91,11 @@ const updateKelasByID = async (req, res) => {
     if (description) kelas.description = description;
 
     for (let items in materi) {
-      if (materi[items]) kelas.materi[items] = materi[items];
+      if (!kelas.materi.includes(materi[items])) kelas.materi.push(materi[items]);
     }
 
-    for (let items in materi) {
-      if (materi[items]) kelas.materi[items] = materi[items];
-    }
     for (let items in categories) {
-      if (categories[items]) kelas.categories[items] = categories[items];
+      if (!kelas.categories.includes(categories[items])) kelas.categories.push(categories[items]);
     }
 
     if (level) kelas.level = level;
