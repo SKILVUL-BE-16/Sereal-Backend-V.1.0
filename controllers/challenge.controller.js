@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 // get:
 const getAllChallenge = async (req, res) => {
   try {
-    const challenge = await Challenge.find({}, '-__v');
+    const challenge = await Challenge.find({}, '-__v').populate('categories');
 
     res.status(200).json({
       message: 'Success get all challenges',
@@ -23,7 +23,7 @@ const getChallengeByID = async (req, res) => {
 
   try {
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(400).json({ message: 'No data for this challenge' });
-    const challenge = await Challenge.findOne({ _id: id });
+    const challenge = await Challenge.findOne({ _id: id }).populate('categories');
     res.status(200).json({
       message: `Get challenge with id ${id} success`,
       data: challenge,

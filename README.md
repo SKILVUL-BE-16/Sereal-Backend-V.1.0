@@ -1,4 +1,4 @@
-# Web Service & RESTful API for Sereal Application
+# Web Service & RESTful API Sereal Application by BE-16
 
 ## Built With
 
@@ -9,65 +9,111 @@
 - bcrypt
 
 ## ERD
-
 ![Sereal ERD](SEREAL_ERD.png)
 
 ## Deploy Site
+- [.up.railway.]()
 
-- [Sereal Backend](https://sereal-backend.up.railway.app/)
+
 
 ## API Documentation
-
 - [Open API spesification file](/api/sereal.json)
   atau lewat swagger hub
-- [Swagger Hub sereal api spesification](https://app.swaggerhub.com/apis/yazidr1/sereal-app/1.0)
+- [Swagger Hub sereal api spesification]()
 
 ## APIs Specification
+- **Base URL API** : https://www
 
-### Users
+### Authentication
+There are two roles: **user** and **admin**.
+As **user**, you can register, login and use almost all API GET method. As **admin**, you can use all API available.
 
-- #### Register
-- Method : POST
-- Endpoint : /register
-- Body :
+To use API as **admin**, first **register** yourself and then **contact** developers to change your role.
 
-```
+To use API as **admin**, use this :
+Request:
+- Header:
+    - x-access-token : "your unique jwt token"
+- and other additional headers depend on the usecase
+
+Otherwise you will get:
+- Response: 
+- status code: **403**
+```json
 {
-    "name": String,
-    "email": String,
-    "password": String,
-    "role": String
+    "A token is required for authentication"
 }
 ```
 
-- Response
-
+### Register
+- Method : **POST**
+- Endpoint : `/register`
+- Body :
+```json
+{
+    "name": "string, length> 0",
+    "email": "string, must have @, length >3",
+    "password": "string, length> 0"
+}
 ```
+- Response
+- status code: **201**
+```json
 {
     "message": "data has been created!!"
 }
 ```
-
-- #### Login
+- status code: **406**
+```json
+{
+    "message": "Data doesn't meet the standards of required fields"
+}
+```
+- status code: **500**
+```
+{
+    "message": "string",
+    "error": "string",
+}
+```
+### Login
 - Method : POST
 - Endpoint : /login
 - Body :
-
-```
+```json
 {
-    "email": String,
-    "password": String
+    "email": "string, must have @",
+    "password": "string"
+}
+```
+- Response:
+- status code: **200**
+```json
+{
+    "message": "string",
+    "token": "string"
+}
+```
+- status code: **404**
+```json
+{
+    "message": "string"
+}
+```
+- status code: **400**
+```json
+{
+    "message": "string"
+}
+```
+- status code: **500**
+```json
+{
+    "message": "string",
+    "error": "string",
 }
 ```
 
-- Response :
-
-```
-{
-    "message": "Anda berhasil login"
-    "token",
-}
-```
 
 ### Materi
 
@@ -564,3 +610,29 @@ Response:
   "error": "string"
 }
 ```
+
+### Gallery
+
+
+### Users
+#### Get All User
+- Method: **GET**
+- Endpoint: `/users`
+- Response:
+- status code: **200**
+```json
+{
+    "message": "string",
+    "data": {
+        "_id": "string",
+        "email": "string, must have @",
+        "password": "string",
+        "kelas": ["kelas1", "kelas2"],
+        "challenge": ["challenge1", "challenge2"],
+    }
+}
+```
+- ststus code: 
+#### Get User by ID
+#### Update User by ID
+#### Delete User by ID

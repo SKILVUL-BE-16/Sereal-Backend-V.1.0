@@ -93,7 +93,7 @@ const updateGalleryByID = async (req, res) => {
 
     if (status != undefined && typeof status == 'boolean') status ? (gallery.status = true) : (gallery.status = false);
 
-    await gallery.save();
+    await gallery.updateOne();
 
     res.json({
       message: 'Success update gallery',

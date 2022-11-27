@@ -7,26 +7,27 @@ require("dotenv").config();
 module.exports = {
   // post: /register
   register: (req, res) => {
-    const data = req.body;
-    // kurang 
+    let {name, email, password} = req.body;
+    let data = { name, email, password};
     try {
-      if(data.name.length == 0 || data.email.length == 0 | data.password.length == 0){
-        return res.status(406).send("fill the required properties")
+      if(name.length  == 0 || email.length <= 3  || password.length == 0){
+        return res.status(406).send({"message": "Data given doesn't meet the standards of required fields"})
       }
       const saltRounds = 10;
       const hash = bcrypt.hashSync(data.password, saltRounds);
       data.password = hash;
+      console.log(data)
       const user = new User(data);
 
       user.save();
 
-      res.status(200).json({
-        message: "data has been created!!",
+      res.status(201).json({
+        "message": "Sign Up success!",
       });
     } catch (error) {
-      res.status(500).send({
-        message: "server error",
-        error: error.message,
+      res.status(500).json({
+        "message": "server error",
+        "error": error.message,
       });
     }
   },
@@ -48,18 +49,18 @@ module.exports = {
           expiresIn: 86400,
         }); //expires in 24 hours
         res.header("x-access-token", token).status(200).json({
-          message: "Anda berhasil login",
-          token,
+          "message": `Selamat Datang ${user.name.split(" ")[0]}`,
+          "token": token,
         });
       } else {
         res.status(400).json({
-          message: "Login gagal",
+          "message": "Login gagal",
         });
       }  
     } catch (error) {
-      res.status(500).send({
-        message: "server error",
-        error: error.message,
+      res.status(500).json({
+        "message": "server error",
+        "error": error.message,
       });
     }
   },
@@ -74,7 +75,7 @@ module.exports = {
         data: user,
       });
     } catch (error) {
-      res.status(500).send({
+      res.status(500).json({
         message: "server error",
         error: error.message,
       });
@@ -87,30 +88,14 @@ module.exports = {
     try {
       if (!mongoose.Types.ObjectId.isValid(id))
         return res.status(400).json({ message: "invalid id" });
-      const user = await User.findById(id, "-__v -role -createdAt -password -updatedAt");
+      const user = await User.findById(id, "-__v -role -createdAt -password -updatedAt").populate('kelas challenge');
       res.status(200).json({
-        message: "get a user succes",
+        message: `get ${user.email} success`,
         data: user,
       });
     } catch (error) {
-      res.status(404).send({
+      res.status(404).json({
         message: "user doesn't exist",
-        error: error.message,
-      });
-    }
-  },
-
-  // update: /:id
-  updateUserByID: async (req, res) => {
-    const id = req.params;
-    try {
-      const data = req.body;
-      // if (data.)
-      const user = await User.findByIdAndUpdate(id, data);
-      console.table(user);
-    } catch (error) {
-      res.status(500).send({
-        message: "server error",
         error: error.message,
       });
     }
@@ -118,12 +103,12 @@ module.exports = {
 
   // type 2 update: /:id
   updateUserByID2: async (req, res) => {
-    const id = req.params;
+    const id = req.params.id;
     try {
       const data = req.body;
       // if (data.)
-      const user = await User.findById(id);
-      console.table(user);
+      const user = await User.findById(id, "-_id -__v -role -createdAt -password -updatedAt");
+      console.log(user);
       if (data.name) {
         user.name = data.name;
       }
@@ -142,16 +127,14 @@ module.exports = {
       if (data.tgl_lahir) {
         user.tgl_lahir = data.tgl_lahir;
       }
-      if (data.jns.kelamin) {
-        user.jns.kelamin = data.jns.kelamin;
+      if (data.jns_kelamin) {
+        user.jns_kelamin = data.jns_kelamin;
       }
       for (let item in data.kelas) {
-        if (data.kelas[item])
-          user.kelas[item] = data.kelas[item];
+        if (!user.kelas.includes(data.kelas[item])) user.kelas.push(data.kelas[item]);
       }
       for (let item in data.challenge) {
-        if (data.challenge[item])
-          user.challenge[item] = data.challenge[item];
+        if (!user.challenge.includes(data.challenge[item])) user.challenge.push(data.challenge[item]);
       }
       if (data.social_media.insta) {
         user.social_media.insta = data.social_media.insta;
@@ -162,30 +145,19 @@ module.exports = {
       if (data.social_media.other) {
         user.social_media.other = data.social_media.other;
       }
-      await user.save();
+      await user.updateOne();
       res.status(200).json({
-        massage: "success",
+        massage: `user ${user.email} updated`,
         data: user,
       });
     } catch (error) {
-      res.status(500).send({
+      res.status(500).json({
         message: "server error",
         error: error.message,
       });
     }
   },
-
-  // _id
-  // name
-  // email
-  // password
-  // role
-  // sekolah
-  // tgl_lahir
-  // jns_kelamin
-  // kelas: []
-  // challenge: []
-  // social_media: insta: ,fb: , other:
+  // updatePasswordById: 
 
   // delete: /:id
   deleteUserByID: async (req, res) => {
@@ -193,11 +165,11 @@ module.exports = {
     try {
       const user = await User.findByIdAndDelete(id);
       res.status(200).json({
-        message: `user id ${id} succesfully deleted`,
+        message: `user ${user.email} deleted`,
       });
     } catch (error) {
-      res.status(404).send({
-        message: "user doesn't exist",
+      res.status(404).json({
+        message: `user ${user.email} doesn't exist`,
         error: error.message,
       });
     }
