@@ -12,10 +12,7 @@ const getAllKelas = async (req, res) => {
       });
     } else {
       kelas = await Kelas.find({}, '-__v').populate('materi categories');
-      res.status(200).json({
-        message: 'Success get all kelas',
-        data: kelas,
-      });
+      res.status(200).send(kelas);
     }
   } catch (error) {
     res.status(500).send({
@@ -81,12 +78,14 @@ const deleteKelasByID = async (req, res) => {
 const updateKelasByID = async (req, res) => {
   const { id } = req.params;
 
-  const { title, description, materi, categories, status, level } = req.body;
+  const { title, image, description, materi, categories, status, level } = req.body;
 
   try {
     const kelas = await Kelas.findOne({ _id: id });
 
     if (title) kelas.title = title;
+
+    if (image) kelas.image = image;
 
     if (description) kelas.description = description;
 
