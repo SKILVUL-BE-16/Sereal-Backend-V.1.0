@@ -16,10 +16,11 @@ module.exports = {
       const saltRounds = 10;
       const hash = bcrypt.hashSync(data.password, saltRounds);
       data.password = hash;
-      console.log(data)
+      // console.log(data)
+      
       const user = new User(data);
 
-      user.save();
+      user.updateOne();
 
       res.status(201).json({
         "message": "Sign Up success!",
@@ -70,7 +71,7 @@ module.exports = {
     try {
       const user = await User.find({}, "-__v -role -createdAt -password -updatedAt");
       // console.log(req.user.user.email)
-      res.json({
+      res.status(200).json({
         message: "get all user success",
         data: user,
       });
@@ -107,7 +108,7 @@ module.exports = {
     try {
       const data = req.body;
       // if (data.)
-      const user = await User.findById(id, "-_id -__v -role -createdAt -password -updatedAt");
+      const user = await User.findById(id, "-__v -role -createdAt -password");
       console.log(user);
       if (data.name) {
         user.name = data.name;
@@ -115,12 +116,12 @@ module.exports = {
       if (data.email) {
         user.email = data.email;
       }
-      if (data.password) {
-        user.password = data.password;
-      }
-      // if (data.role) {
-      //   user.role = data.role;
+      // if (data.password) {
+      //   user.password = data.password;
       // }
+      if (data.role) {
+        user.role = data.role;
+      }
       if (data.sekolah) {
         user.sekolah = data.sekolah;
       }
@@ -145,7 +146,9 @@ module.exports = {
       if (data.social_media.other) {
         user.social_media.other = data.social_media.other;
       }
-      await user.updateOne();
+      console.log(user)
+      await user.save();
+
       res.status(200).json({
         massage: `user ${user.email} updated`,
         data: user,
