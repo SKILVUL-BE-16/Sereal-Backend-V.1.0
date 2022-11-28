@@ -5,7 +5,7 @@ const challengeSchema = new Schema({
   title: {
     type: String,
     required: true,
-    minLength: 10,
+    minLength: 3,
     // maxLength: 100,
   },
   description: {
