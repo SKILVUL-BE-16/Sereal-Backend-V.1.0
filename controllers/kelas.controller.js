@@ -12,10 +12,7 @@ const getAllKelas = async (req, res) => {
       });
     } else {
       const kelas = await Kelas.find({}, '-__v').populate('materi categories');
-      res.status(200).json({
-        message: 'Success get all kelas',
-        data: kelas
-      });
+      res.status(200).send(kelas);
     }
   } catch (error) {
     res.status(500).send({
