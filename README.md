@@ -14,7 +14,7 @@
 
 ## Deploy Site
 
-- [.up.railway.]()
+- [[https://sereal-be-testing.up.railway.app]]
 
 ## API Documentation
 
@@ -24,7 +24,7 @@
 
 ## APIs Specification
 
-- **Base URL API** : https://www
+- **Base URL API** : [[https://sereal-be-testing.up.railway.app/]]
 
 ### Authentication
 
@@ -47,7 +47,7 @@ Otherwise you will get:
 
 ```json
 {
-    "A token is required for authentication"
+    "A token is required for authorization"
 }
 ```
 
@@ -55,6 +55,10 @@ Otherwise you will get:
 Request:
 - Method : **POST**
 - Endpoint : `/register`
+- Header:
+  - Content-Type: application/json
+  - Accept: application/json
+  - x-access-token = "token"
 - Body :
 
 ```json
@@ -70,7 +74,7 @@ Response:
 
 ```json
 {
-  "message": "data has been created!!"
+  "message": "string"
 }
 ```
 
@@ -78,16 +82,16 @@ Response:
 
 ```json
 {
-  "message": "Data doesn't meet the standards of required fields"
+  "message": "string"
 }
 ```
 
 - status code: **500**
 
-```
+```json
 {
-    "message": "string",
-    "error": "string",
+  "message": "string",
+  "error": "string",
 }
 ```
 
@@ -148,7 +152,7 @@ Request :
 - Method: **GET**
 - Endpoint: `/materi `
 - Header:
-  - accept:application/json
+  - Accept:application/json
 
 Response :
 
@@ -163,20 +167,20 @@ Response :
             "title":"string",
             "body":"string",
             "content":{
-                "image":"[string]",
-                "video":"[string]"
+                "image":["string, link"],
+                "video":["string, link"]
             },
-            "status":boolean
+            "status":"Boolean"
         },
         {
             "id":"string, unique",
             "title":"string",
             "body":"string",
             "content":{
-                "image":"[string]",
-                "video":"[string]"
+                "image":["string, link"],
+                "video":["string, link"]
             },
-            "status":boolean
+            "status":"Boolean"
         }
     ]
 }
@@ -198,7 +202,7 @@ Request :
 - Method: **GET**
 - Endpoint: `/materi/{materi_id}`
 - Header:
-  - accept:application/json
+  - Accept:application/json
 
 Response:
 
@@ -212,10 +216,10 @@ Response:
             "title":"string",
             "body":"string",
             "content":{
-                "image":"[string]",
-                "video":"[string]"
+                "image":["string, link"],
+                "video":["string, link"]
             },
-            "status":boolean
+            "status":"Boolean"
     }
 
 }
@@ -236,8 +240,8 @@ Request :
 - Method: **POST**
 - Endpoint: `/materi`
 - Header:
-  - Content-type:application/json
-  - accept:application/json
+  - Content-Type:application/json
+  - Accept:application/json
   - x-access-token = "token"
 - Body:
 
@@ -247,10 +251,9 @@ Request :
     "title":"string",
     "body":"string",
     "content":{
-        "image":"[string]",
-        "video":"[string]"
+        "image":["string, link"],"video":["string, link"]
     },
-    "status":boolean
+    "status":"Boolean"
 }
 ```
 
@@ -280,8 +283,8 @@ Request :
 - Method: **PATCH**
 - Endpoint: `/materi/{materi_id}`
 - Header:
-  - Content-type:application/json
-  - accept:application/json
+  - Content-Type:application/json
+  - Accept:application/json
   - x-access-token = "token"
 - Body:
 
@@ -290,10 +293,10 @@ Request :
     "title":"string",
     "body":"string",
     "content":{
-        "image":"[string]",
-        "video":"[string]"
+      "image":["string, link"],
+      "video":["string, link"]
     },
-    "status":boolean
+    "status":"Boolean"
 }
 ```
 
@@ -323,7 +326,7 @@ Request :
 - Method: **Delete**
 - Endpoint: `/materi/{materi_id}`
 - Header:
-  - accept:application/json
+  - Accept:application/json
   - x-access-token = "token"
 
 Response:
@@ -354,7 +357,7 @@ Request :
 - Method: **GET**
 - Endpoint: `/kelas `
 - Header:
-  - accept:application/json
+  - Accept:application/json
 
 Response :
 
@@ -374,60 +377,20 @@ Response :
                   "title":"string",
                   "body":"string",
                   "content":{
-                      "image":"[string]",
-                      "video":"[string]"
+                    "image":["string", "link"],
+                    "video":["string, link"]
                   },
-                  "status":boolean
+                  "status":"Boolean"
               },
               {
                   "id":"string, unique",
                   "title":"string",
                   "body":"string",
                   "content":{
-                      "image":"[string]",
-                      "video":"[string]"
+                      "image":["string", "link"],
+                      "video":["string, link"]
                   },
-                  "status":boolean
-              }
-            ],
-            "categories":[
-              {
-                "id":"string, unique",
-                "name":"string"
-              },
-              {
-                "id":"string, unique",
-                "name":"string"
-              }
-            ],
-            "level":"string"
-            "status":boolean
-        },
-        {
-            "id":"string, unique",
-            "title":"string",
-            "description":"string",
-            "materi":[
-              {
-                  "id":"string, unique",
-                  "title":"string",
-                  "body":"string",
-                  "content":{
-                      "image":"[string]",
-                      "video":"[string]"
-                  },
-                  "status":boolean
-              },
-              {
-                  "id":"string, unique",
-                  "title":"string",
-                  "body":"string",
-                  "content":{
-                      "image":"[string]",
-                      "video":"[string]"
-                  },
-                  "level":"string"
-                  "status":boolean
+                  "status":"Boolean"
               }
             ],
             "categories":[
@@ -441,7 +404,47 @@ Response :
               }
             ],
             "level":"string",
-            "status":boolean
+            "status":"Boolean"
+        },
+        {
+            "id":"string, unique",
+            "title":"string",
+            "description":"string",
+            "materi":[
+              {
+                  "id":"string, unique",
+                  "title":"string",
+                  "body":"string",
+                  "content":{
+                      "image":["string", "link"],
+                      "video":["string, link"]
+                  },
+                  "status":"Boolean"
+              },
+              {
+                  "id":"string, unique",
+                  "title":"string",
+                  "body":"string",
+                  "content":{
+                      "image":"[string]",
+                      "video":"[string]"
+                  },
+                  "level":"string",
+                  "status":"Boolean"
+              }
+            ],
+            "categories":[
+              {
+                "id":"string, unique",
+                "name":"string"
+              },
+              {
+                "id":"string, unique",
+                "name":"string"
+              }
+            ],
+            "level":"string",
+            "status":"Boolean"
         }
     ]
 }
@@ -463,7 +466,7 @@ Request :
 - Method: **GET**
 - Endpoint: `/kelas/{kelas_id}`
 - Header:
-  - accept:application/json
+  - Accept:application/json
 
 Response:
 
@@ -482,20 +485,20 @@ Response:
                   "title":"string",
                   "body":"string",
                   "content":{
-                      "image":"[string]",
-                      "video":"[string]"
+                      "image":["string", "link"],
+                      "video":["string, link"]
                   },
-                  "status":boolean
+                  "status":"Boolean"
               },
               {
                   "id":"string, unique",
                   "title":"string",
                   "body":"string",
                   "content":{
-                      "image":"[string]",
-                      "video":"[string]"
+                      "image":["string", "link"],
+                      "video":["string, link"]
                   },
-                  "status":boolean
+                  "status":"Boolean"
               }
             ],
             "categories":[
@@ -509,7 +512,7 @@ Response:
               }
             ],
             "level":"string",
-            "status":boolean
+            "status": "Boolean"
         }
 
 }
@@ -530,8 +533,8 @@ Request :
 - Method: **POST**
 - Endpoint: `/kelas`
 - Header:
-  - Content-type:application/json
-  - accept:application/json
+  - Content-Type:application/json
+  - Accept:application/json
   - x-access-token = "token"
 - Body:
 
@@ -539,10 +542,10 @@ Request :
 {
     "title":"string",
     "description":"string",
-    "materi":[objectID],
-    "categories":[objectID],
+    "materi":["objectID"],
+    "categories":["objectID"],
     "level":"string",
-    "status":boolean
+    "status": "Boolean"
 }
 ```
 
@@ -572,18 +575,18 @@ Request :
 - Method: **PATCH**
 - Endpoint: `/kelas/{kelas_id}`
 - Header:
-  - Content-type:application/json
-  - accept:application/json
+  - Content-Type:application/json
+  - Accept:application/json
 - Body:
 
 ```json
 {
     "title":"string",
     "description":"string",
-    "materi":[objectID],
-    "categories":[objectID],
+    "materi":["objectID"],
+    "categories":["objectID"],
     "level":"string",
-    "status":boolean
+    "status":"Boolean"
 }
 ```
 
@@ -613,7 +616,7 @@ Request :
 - Method: **Delete**
 - Endpoint: `/kelas/{kelas_id}`
 - Header:
-  - accept:application/json
+  - Accept:application/json
   - x-access-token = "token"
 
 Response:
@@ -637,27 +640,109 @@ Response:
 
 ### Gallery
 
-#### Get All User
+#### Get All Gallery
+Request:
 
-#### Get User by ID
+- Method: **GET**
+- Endpoint: `/gallery`
+- Header:
+  - Accept: application/json
+  - x-access-token : `token`
 
-#### Update User by ID
+Response:
+- status code: **200**
+```json
+{
+  "message": "Success get all gallery",
+  "data": [
+    {
+      "_id": "string, unique",
+      "title": "string, min length",
+      "author": "string",
+      "description": "string",
+      "categories": [
+        {
+          "_id": "string, unique",
+          "name": "string"
+        }
+      ],
+      "status": "Boolean"
+    }
+  ]
+}
+```
+- status code: **500**
+```json
+{
+  "message": "string",
+  "error": "string"
+}
+```
+#### Get Gallery by ID
+Request:
 
-#### Delete User by ID
+- Method: **GET**
+- Endpoint: `/gallery`
+- Header:
+  - Accept: application/json
+  - x-access-token : `token`
+
+Response:
+- status code: **200**
+```json
+{
+  "message": "string",
+  "data": {
+    "_id": "string, unique",
+    "title": "string",
+    "author": "string",
+    "description": "string",
+    "categories": [
+      "categories_id"
+    ]}
+}
+```
+- status code: **400**
+```json
+{
+  "message": "string"
+}
+```
+- status code: **404**
+
+```json
+{
+  "message": "string"
+}
+```
+- status code: **500**
+
+```json
+{
+  "message": "string",
+  "data": "string"
+}
+```
+#### Create Gallery
+
+#### Update Gallery by ID
+
+#### Delete Gallery by ID
 
 ### Users
 
 #### Get All User
-
 Request:
 
 - Method: **GET**
 - Endpoint: `/users`
+- Header:
+  - Accept: application/json
+  - x-access-token : `token`
 
 Response:
 
 - status code: **200**
-
 ```json
 {
   "message": "string",
@@ -665,9 +750,17 @@ Response:
     {
       "_id": "string",
       "email": "string, must have @",
-      "password": "string",
-      "kelas": ["kelas1", "kelas2"],
-      "challenge": ["challenge1", "challenge2"]
+      "role": "user||admin",
+      "sekolah": "string",
+      "jns_kelamin":"pria||wanita",
+      "kelas": ["kelas_id", "kelas_id"],
+      "challenge": ["challenge_id", "challenge_id"],
+      "social_media": {
+        "insta": "string",
+        "fb": "string",
+        "other": "string"
+      },
+      "updatedAt": "dateAndTimezone"
     }
   ]
 }
@@ -688,6 +781,9 @@ Request:
 
 - Method: **GET**
 - Endpoint: `/users/{user_id}`
+- Header:
+  - Accept: application/json
+  - x-access-token : `token`
 
 Response:
 
@@ -695,14 +791,38 @@ Response:
 
 ```json
 {
-  "message": "string",
-  "data": {
-    "_id": "string",
-    "email": "string, must have @",
-    "password": "string",
-    "kelas": ["string", "string"],
-    "challenge": ["string", "string"]
-  }
+"message": "string",
+  "data": [
+    {
+      "_id": "string",
+      "email": "string, must have @",
+      "role": "user||admin",
+      "sekolah": "string",
+      "jns_kelamin":"pria||wanita",
+      "kelas": [{
+        "_id": "string, unique",
+        "title": "string",
+        "image": "string, link",
+        "level": "string",
+        "status": "Boolean"
+      }],
+      "challenge": [{
+        "_id": "6379e9da860e53a54a26f3f1",
+        "title": "Design Poster Digital",
+        "content": {
+          "image": ["string, link"]
+        },
+        "requirement": "string",
+        "status": "Boolean"
+      }],
+      "social_media": {
+        "insta": "string",
+        "fb": "string",
+        "other": "string"
+      },
+      "updatedAt": "dateAndTimezone"
+    }
+  ]
 }
 ```
 - status code: **400**
@@ -712,6 +832,13 @@ Response:
 }
 ```
 - status code: **404**
+
+```json
+{
+  "message": "string"
+}
+```
+- status code: **500**
 
 ```json
 {
@@ -729,11 +856,105 @@ Request:
 - Header:
   - Content-Type: application/json
   - Accept: application/json
+  - x-access-token : `token`
 - Body:
-```
+```json
+{
+  "name":"string",
+  "email": "string, must have @, unique",
+  "password":"string",
+  "role": "user||admin",
+  "sekolah": "string",
+  "tgl_lahir":"yyyy-mm-dd",
+  "jns_kelamin": "pria||wanita",
+  "kelas": ["kelas_id", "kelas_id"],
+  "challenge": ["challenge_id"],
+  "social_media": {
+    "insta": "string",
+    "fb": "string",
+    "other":"string"
+  }
+}
 ```
 
 Response:
+- status code: **200**
+```json
+{
+  "message": "string",
+  "data": {
+    "name":"string",
+    "email": "string, must have @, unique",
+    "password":"string",
+    "role": "user||admin",
+    "sekolah": "string",
+    "tgl_lahir":"yyyy-mm-dd",
+    "jns_kelamin": "pria||wanita",
+    "kelas": ["kelas_id", "kelas_id"],
+    "challenge": ["challenge_id"],
+    "social_media": {
+      "insta": "string",
+      "fb": "string",
+      "other":"string"
+  }}
+}
+```
+- status code: **400**
+```json
+{
+  "message": "string"
+}
+```
+- status code: **404**
 
+```json
+{
+  "message": "string"
+}
+```
+- status code: **500**
+
+```json
+{
+  "message": "string",
+  "error": "string"
+}
+```
 
 #### Delete User by ID
+Request:
+
+- Method: **PATCH**
+- Endpoint: `/kelas/{kelas_id}`
+- Header:
+  - Accept: application/json
+  - x-access-token : `token`
+
+Response:
+- status code: **200**
+```json
+{
+  "message": "string"
+}
+```
+- status code: **400**
+```json
+{
+  "message": "string"
+}
+```
+- status code: **404**
+
+```json
+{
+  "message": "string"
+}
+```
+- status code: **500**
+
+```json
+{
+  "message": "string",
+  "data": "string"
+}
+```
