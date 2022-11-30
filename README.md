@@ -459,6 +459,99 @@ Response :
 }
 ```
 
+#### Filter Kelas By Category ID
+
+Request :
+
+- Method: **GET**
+- Endpoint Query: `/kelas?categories={categories_id}`
+- Header:
+  - Accept:application/json
+
+Response:
+
+- Status code: **200**
+
+```json
+{
+    "massage":"string",
+    "data":[
+      {
+            "id":"string, unique",
+            "title":"string",
+            "description":"string",
+            "materi":[
+              {
+                  "id":"string, unique",
+                  "title":"string",
+                  "body":"string",
+                  "content":{
+                      "image":["string", "link"],
+                      "video":["string, link"]
+                  },
+                  "status":"Boolean"
+              },
+              {
+                  "id":"string, unique",
+                  "title":"string",
+                  "body":"string",
+                  "content":{
+                      "image":["string", "link"],
+                      "video":["string, link"]
+                  },
+                  "status":"Boolean"
+              }
+            ],
+            "categories":[
+              {
+                "id":"string, unique",
+                "name":"string"
+              }
+            ],
+            "level":"string",
+            "status": "Boolean"
+        },
+        {
+            "id":"string, unique",
+            "title":"string",
+            "description":"string",
+            "materi":[
+              {
+                  "id":"string, unique",
+                  "title":"string",
+                  "body":"string",
+                  "content":{
+                      "image":["string", "link"],
+                      "video":["string, link"]
+                  },
+                  "status":"Boolean"
+              },
+              {
+                  "id":"string, unique",
+                  "title":"string",
+                  "body":"string",
+                  "content":{
+                      "image":["string", "link"],
+                      "video":["string, link"]
+                  },
+                  "status":"Boolean"
+              }
+            ],
+            "categories":[
+              {
+                "id":"string, unique",
+                "name":"string"
+              }
+            ],
+            "level":"string",
+            "status": "Boolean"
+        }
+    ]
+
+}
+```
+
+
 #### Get Kelas by ID
 
 Request :
